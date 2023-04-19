@@ -13,7 +13,7 @@ public class CadastroPedidos {
         String nomeCliente;
         boolean cadastrarNovoPedido = true;
         
-        while (cadastrarNovoPedido) {
+while (cadastrarNovoPedido) {
             
             System.out.print("Digite o nome do cliente: ");
             nomeCliente = input.nextLine();
@@ -36,8 +36,9 @@ public class CadastroPedidos {
                 double precoProduto = input.nextDouble();
                 input.nextLine(); 
                 
-                String pedido = nomeProduto + "," + qtdProduto + "," + precoProduto;
-                pedidos.add(pedido);
+                Pedido pedido = new Pedido(nomeProduto, qtdProduto, precoProduto);
+                String pedidoStr = pedido.getNomeProduto() + "," + pedido.getQuantidade() + "," + pedido.getPrecoUnitario();
+                pedidos.add(pedidoStr);
             }
             
             pedidos.add(""); //Pular linha entre os pedidos
