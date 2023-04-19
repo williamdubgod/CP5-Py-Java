@@ -13,6 +13,7 @@ public class CadastroPedidos {
         String nomeCliente;
         boolean cadastrarNovoPedido = true;
         
+     // Loop para cadastrar novos pedidos
 while (cadastrarNovoPedido) {
             
             System.out.print("Digite o nome do cliente: ");
@@ -23,6 +24,7 @@ while (cadastrarNovoPedido) {
             int qtdProdutos = input.nextInt();
             input.nextLine(); 
             
+         // Loop para cadastrar os produtos do pedido
             for (int i = 0; i < qtdProdutos; i++) {
                 
                 System.out.print("Digite o nome do produto: ");
@@ -36,6 +38,7 @@ while (cadastrarNovoPedido) {
                 double precoProduto = input.nextDouble();
                 input.nextLine(); 
                 
+             // Cria um novo objeto Pedido com as informações do produto e adiciona a linha correspondente à lista de pedidos
                 Pedido pedido = new Pedido(nomeProduto, qtdProduto, precoProduto);
                 String pedidoStr = pedido.getNomeProduto() + "," + pedido.getQuantidade() + "," + pedido.getPrecoUnitario();
                 pedidos.add(pedidoStr);
@@ -49,7 +52,7 @@ while (cadastrarNovoPedido) {
         
         input.close();
         
-        //Gravar os pedidos em um arquivo
+        //Grava os pedidos em um arquivo
         FileWriter writer = new FileWriter(new File("pedidos.txt"));
         
         for (String pedido : pedidos) {
@@ -58,7 +61,7 @@ while (cadastrarNovoPedido) {
         
         writer.close();
         
-        //Calcular o total de pedidos
+        //Lê os pedidos do arquivo e calcula o total
         Scanner fileReader = new Scanner(new File("pedidos.txt"));
         ArrayList<String> clientes = new ArrayList<>();
         ArrayList<Double> totais = new ArrayList<>();
@@ -68,7 +71,7 @@ while (cadastrarNovoPedido) {
             String linha = fileReader.nextLine();
             
             if (!linha.isEmpty()) {
-                
+            	// Se a linha não tem vírgulas, é o nome do cliente
                 if (linha.indexOf(",") == -1) {
                     
                     clientes.add(linha);
@@ -80,6 +83,7 @@ while (cadastrarNovoPedido) {
                     int qtdProduto = Integer.parseInt(partes[1]);
                     double precoProduto = Double.parseDouble(partes[2]);
                     
+                 // Encontra o último cliente adicionado e atualiza o total do pedido
                     int indiceUltimoCliente = clientes.size() - 1;
                     double totalAtual = totais.get(indiceUltimoCliente);
                     totais.set(indiceUltimoCliente, totalAtual + (qtdProduto * precoProduto));
@@ -89,7 +93,7 @@ while (cadastrarNovoPedido) {
         
         fileReader.close();
         
-        //Gravar os totais dos pedidos em um arquivo
+     // Grava os totais dos pedidos em um arquivo
         FileWriter writerTotais = new FileWriter(new File("total_pedidos.txt"));
         
         for (int i = 0; i < clientes.size(); i++) {
